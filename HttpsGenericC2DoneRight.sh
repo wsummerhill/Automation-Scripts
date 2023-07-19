@@ -9,6 +9,15 @@
 runuser=$(whoami)
 tempdir=$(pwd)
 
+# Check Sudo Dependency going to need that!
+if [ $(id -u) -ne '0' ]; then
+    echo
+    echo ' [ERROR]: This Setup Script Requires root privileges!'
+    echo '          Please run this setup script again with sudo or run as login as root.'
+    echo
+    exit 1
+fi
+
 # Echo Title
 clear
 echo '=========================================================================='
@@ -32,18 +41,6 @@ echo
 domainPkcs="$domain.p12"
 domainStore="$domain.store"
 
-
-# Environment Checks
-func_check_env(){
-  # Check Sudo Dependency going to need that!
-  if [ $(id -u) -ne '0' ]; then
-    echo
-    echo ' [ERROR]: This Setup Script Requires root privileges!'
-    echo '          Please run this setup script again with sudo or run as login as root.'
-    echo
-    exit 1
-  fi
-}
 
 func_check_tools(){
   if [ $(which keytool) ]; then
@@ -72,7 +69,7 @@ func_check_tools(){
    fi
 }
 
-func_apache_check(){
+func_java_check(){
   if [ $(which java) ]; then
     echo '[Sweet] java is already installed'
     echo
@@ -89,18 +86,18 @@ func_reinstall_certbot(){
   echo 'Removing old certbot version and installing new version with snapd'
   #apt remove certbot -y
   if [ $(which certbot) ]; then
-	echo 'Certbot already installed'
+      echo 'Certbot already installed'
   else
-  	pip3 install certbot
+  	  pip3 install certbot
   fi
   
   apt-get install python3-certbot-apache -y
   
   if [ $(which certbot) ]; then
-  	echo '[Success] Certbot installed with pip!'
+  	  echo '[Success] Certbot installed with pip!'
   else
-  	echo '[ERROR] Certbot installation failed'
-  	exit 1
+  	  echo '[ERROR] Certbot installation failed'
+  	  exit 1
   fi
 }
 
@@ -142,9 +139,8 @@ func_build_pkcs(){
 # Menu Case Statement
 case $1 in
   *)
-  func_check_env
   func_check_tools
-  #func_apache_check
+  func_java_check
   func_reinstall_certbot
   func_install_letsencrypt
   func_build_pkcs
