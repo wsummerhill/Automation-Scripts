@@ -1,7 +1,7 @@
 variable "hostname" {
   type = string
   description = "Server hostname to create"
-  default = "<HOSTNAME>" # Server hostname
+  default = "sliver-c2" # Server hostname
 }
 
 variable "region" {
