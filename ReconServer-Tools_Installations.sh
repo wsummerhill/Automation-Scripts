@@ -4,6 +4,7 @@ sudo apt-get update -y
 
 # Install base stuff
 sudo apt install net-tools -y
+sudo apt-get install plocat -y
 
 # Install Go
 wget https://go.dev/dl/go1.21.0.linux-amd64.tar.gz
