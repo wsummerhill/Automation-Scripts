@@ -4,9 +4,9 @@ sudo apt-get update -y
 
 # Install base stuff
 sudo apt install net-tools -y
-sudo apt-get install plocat -y
+sudo apt-get install plocate -y
 sudo apt install python3-pip -y
-
+sudo apt  install jq -y
 
 cd ~/
 
@@ -28,6 +28,7 @@ go install github.com/OJ/gobuster/v3@latest	# gobuster
 go install github.com/ffuf/ffuf/v2@latest 	# ffuf
 go install github.com/bitquark/shortscan/cmd/shortscan@latest	# shortscan
 git clone https://github.com/christophetd/censys-subdomain-finder.git 	# censys domain enum
+go install github.com/sensepost/gowitness@latest	# Gowitness
 
 
 # Project discovery tools
